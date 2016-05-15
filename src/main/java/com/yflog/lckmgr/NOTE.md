@@ -14,3 +14,4 @@ may have more than one `session` (meaning locked on more than one `locker`)
 
 ## BUGS
 1. URL not encoded, cannot parse special chars like empty space
+2. LOCK did not expire as expected with guava cache

@@ -45,7 +45,7 @@ public class LockServiceManager implements LockService {
     private volatile boolean _started = false;
     private HttpServer _server = null;
 
-    private static int _LOCK_EXPIRATION_TIME_SECOND = 120;
+    private static int _LOCK_EXPIRATION_TIME_SECOND = 30;
     private static int _MAX_LOCK_NUMBER = 10000;
 
 
@@ -58,7 +58,7 @@ public class LockServiceManager implements LockService {
 
         _lockHolderMap = new HashMap<String, String>();
         _lockCache = CacheBuilder.newBuilder()
-                .expireAfterAccess(_LOCK_EXPIRATION_TIME_SECOND, TimeUnit.SECONDS)
+                .expireAfterWrite(_LOCK_EXPIRATION_TIME_SECOND, TimeUnit.SECONDS)
                 .maximumSize(_MAX_LOCK_NUMBER)
                 .build();
 

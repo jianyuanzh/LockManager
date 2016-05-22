@@ -13,8 +13,9 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -108,14 +109,13 @@ public class LockServiceManager implements LockService {
     }
 
     // process can be slow up, if many caller try to lock ...
-    private synchronized String _lock(final String lockName) {
+    private String _lock(final String lockName) {
         String newSession = UUID.randomUUID().toString();
         String oldSession = _lockCache.asMap().putIfAbsent(lockName, newSession);
         if (oldSession != null) {
             return String.format(_fmtter, 100, "Lock exists - " + lockName, " ");
         }
         else {
-            _lockCache.put(lockName, newSession);
             return String.format(_fmtter, 200, " ", newSession);
         }
     }

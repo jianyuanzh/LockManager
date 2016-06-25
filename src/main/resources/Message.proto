@@ -1,0 +1,37 @@
+package com.yflog.lckmgr.msg;
+
+/**
+* This file defines the client-server message for Lock manager
+*
+* cd src/main/resources
+* protoc -I=. --java_out=../java ./Message.proto
+*/
+
+option java_outer_classname = "LSMessage";
+option optimize_for = SPEED;
+
+
+enum Status {
+    OK = 1;
+    INVALID_LOCK = 2;
+    TIME_OUT = 3;
+    CLIENT_CLOSED = 4;
+    NOT_LOCK_OWNER = 6;
+}
+
+message Message {
+    enum Command {
+        ACQUIRE = 1;
+        RELEASE = 2;
+    }
+
+    // header part
+    required Command command = 1 [default = ACQUIRE];
+    required string clientId = 2; // an uuid string
+    required int64 seqId = 3;
+
+    optional Status status = 4;
+    optional string errmsg = 5;
+    optional string lckName = 6;
+
+}

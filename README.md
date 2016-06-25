@@ -9,7 +9,7 @@ A off-line lock service with which clients can communicate. It provides followin
 
 ## semantic
 LockManager includes `server` and `client`. And I am using http protocol which uses short connection mostly.
-And `server` supports following RPC:
+And the `server` supports following RPC:
 1. tryLock
 2. lock  (tryLock exactly)
 3. unlock
